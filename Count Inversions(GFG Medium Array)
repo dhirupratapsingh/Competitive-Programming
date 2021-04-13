@@ -1,0 +1,94 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+
+using namespace std;
+int in=0;
+void merge(int a[],int l1,int mid,int r1)
+{
+    int i=0,j=0,k=l1;
+    int n1=mid-l1+1;
+    int n2=r1-mid;
+    int l[n1];
+    int r[n2];
+    for(int i=0;i<n1;i++)
+    {
+        l[i]=a[l1+i];
+    }
+        for(int i=0;i<n2;i++)
+    {
+        r[i]=a[mid+1+i];
+    }
+    while(i<n1&&j<n2)
+    {
+        if(l[i]<=r[j])
+        {
+            a[k]=l[i];
+            i++;
+        }
+        else
+        {
+            a[k]=r[j];
+            in+=n1-i;
+            j++;
+        }
+        k++;
+    }
+    if(i<n1)
+    {
+        while(i<n1)
+        {
+            a[k]=l[i];
+            i++;
+            k++;
+        }
+    }
+    if(j<n2)
+    {
+        while(j<n2)
+        {
+            a[k]=r[j];
+            j++;
+            k++;
+        }
+    }
+    
+}
+void mergeSort(int a[],int l,int r)
+{
+    int mid=l+(r-l)/2;
+    if(l>=r)
+    {
+        return;
+        
+    }
+    
+    mergeSort(a,l,mid);
+    mergeSort(a,mid+1,r);
+    merge(a,l,mid,r);
+}
+
+int main()
+{
+int n;
+cin>>n;
+int a[n];
+for(int i=0;i<n;i++)
+{
+    cin>>a[i];
+}
+mergeSort(a,0,n-1);
+for(int i=0;i<n;i++)
+{
+    cout<<a[i]<<" ";
+}
+
+cout<<endl;
+cout<<in<<endl;
+}
